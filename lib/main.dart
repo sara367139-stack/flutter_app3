@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/HomeScreen.dart';
+// import 'package:flutter_application_1/HomeScreen.dart';
+// import 'package:flutter_application_1/Profile.dart';
+import 'sara.dart'; 
 void main() {
   runApp(const MyApp()); // البدايه 
 }
@@ -30,7 +32,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: HomeScreen(), // هنا يتم استدعاء الصفحه الرئيسيه
+      home:Sara(), // هنا يتم استدعاء الصفحه الرئيسيه
 
     );
   }

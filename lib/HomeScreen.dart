@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
   TextEditingController emailController = TextEditingController();
@@ -41,13 +43,14 @@ import 'package:flutter/material.dart';
   ],
 ),
 
-      body:AboutListTile(
+      body:Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [ 
   
 Card(
   elevation: 2, // يعطي ظل خفيف للكارت ليظهر بشكل أجمل
-  shape: RoundedRectangleBorder(
+  shape: RoundedRectangleBorder(//ده بيخلي العنصر مستطيل بحواف دائرية.
     borderRadius: BorderRadius.circular(16), // حواف دائرية للكارت
   ),
   child: Padding(
@@ -235,8 +238,6 @@ const SizedBox(height: 30),
     ),
   ),
 ),
-  
-
   const SizedBox(height: 30),
      const Text(
           "Upcoming",
