@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 class profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -14,16 +15,27 @@ body: Center(
           mainAxisAlignment: MainAxisAlignment.center, 
           children: [
             
-            CircleAvatar(
-              radius: 60, 
-              backgroundImage: NetworkImage(
-                'https://www.bing.com/th/id/OIP.8Ra2pu53bW3Tghoi2hE6rgHaHa?w=128&h=128&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2', // ضعي هنا رابط صورتكِ المفضلة
-              ),
-            ),
+            // CircleAvatar(
+            //   radius: 60, 
+            //   backgroundImage: NetworkImage(
+            //     'https://www.bing.com/th/id/OIP.8Ra2pu53bW3Tghoi2hE6rgHaHa?w=128&h=128&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2', // ضعي هنا رابط صورتكِ المفضلة
+            //   ),
+            // ),
             
             const SizedBox(height: 20), 
+//image 
+    CachedNetworkImage(
+        imageUrl: "https://www.bing.com/th/id/OIP.8Ra2pu53bW3Tghoi2hE6rgHaHa?w=128&h=128&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2",
+        placeholder: (context, url) => CircularProgressIndicator(),
+        errorWidget: (context, url, error) => Icon(Icons.error),
+     ),
 
-           
+    //  CachedNetworkImage(
+    //    imageUrl: "http://via.placeholder.com/350x150",
+    //    progressIndicatorBuilder: (context, url, downloadProgress) => 
+    //            CircularProgressIndicator(value: downloadProgress.progress),
+    //    errorWidget: (context, url, error) => Icon(Icons.error),
+    // ),
             Text(
               'Sara Mohamed',
               style: TextStyle(
