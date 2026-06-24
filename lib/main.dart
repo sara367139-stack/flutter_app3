@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/smartHome.dart';
 //import 'package:flutter_application_1/login_screen.dart';
 //import 'app_routes.dart';
 //import 'package:flutter_application_1/Profile.dart';
@@ -9,7 +10,9 @@ import 'package:flutter/material.dart';
 // import 'my_Home.dart'; 
 // import 'Layout.dart';
 //import 'settingScreen.dart';
-import 'analytics.dart';
+//import 'analytics.dart';
+import 'HomeScreen.dart';
+
 void main() {
   runApp(const MyApp()); // البدايه 
 }
@@ -38,7 +41,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-  home: Analytics(),// هنا يتم استدعاء الصفحه الرئيسيه
+  home: Smarthome(),// هنا يتم استدعاء الصفحه الرئيسيه
      
   // initialRoute: AppRoutes.loginRoute,
 
