@@ -33,7 +33,7 @@ class LoginScreen extends StatelessWidget {
     ));
   }
 
-/////////////////////// Widgets Mehods ///////////////////
+
 Widget datafield(String lable) {
   return Container(
    
