@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/smartHome.dart';
+//import 'package:flutter_application_1/feature/auth/login_screen.dart';
+//import 'package:flutter_application_1/core/apis/theme/utils/widgets/app_textfeild.dart';
+import 'package:flutter_application_1/feature/setting/settingScreen.dart';
+//import 'package:flutter_application_1/state_screen.dart';
+
+//import 'package:flutter_application_1/feature/auth/login_screen.dart';
+//import '../feature/home/smartHome.dart';
 //import 'package:flutter_application_1/login_screen.dart';
 //import 'app_routes.dart';
 //import 'package:flutter_application_1/Profile.dart';
@@ -11,7 +17,7 @@ import 'package:flutter_application_1/smartHome.dart';
 // import 'Layout.dart';
 //import 'settingScreen.dart';
 //import 'analytics.dart';
-import 'HomeScreen.dart';
+//import 'HomeScreen.dart';
 
 void main() {
   runApp(const MyApp()); // البدايه 
@@ -21,6 +27,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+   // var apptextfeild = Apptextfeild;
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -39,9 +46,9 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-  home: Smarthome(),// هنا يتم استدعاء الصفحه الرئيسيه
+     home:SettingScreen(),// هنا يتم استدعاء الصفحه الرئيسيه
      
   // initialRoute: AppRoutes.loginRoute,
 
@@ -51,5 +58,8 @@ class MyApp extends StatelessWidget {
 // },  
   );
    }
+   
+    
 }
+
 
