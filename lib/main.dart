@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+//import 'package:flutter_application_1/feature/analytics/analytics.dart';
+import 'package:flutter_application_1/feature/home/smartHome.dart';
 //import 'package:flutter_application_1/feature/auth/login_screen.dart';
 //import 'package:flutter_application_1/core/apis/theme/utils/widgets/app_textfeild.dart';
-import 'package:flutter_application_1/feature/setting/settingScreen.dart';
+//import 'package:flutter_application_1/feature/setting/settingScreen.dart';
 //import 'package:flutter_application_1/state_screen.dart';
 
 //import 'package:flutter_application_1/feature/auth/login_screen.dart';
@@ -28,6 +30,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
    // var apptextfeild = Apptextfeild;
+    var smarthome = Smarthome();
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -48,7 +51,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-     home:SettingScreen(),// هنا يتم استدعاء الصفحه الرئيسيه
+     home:smarthome,// هنا يتم استدعاء الصفحه الرئيسيه
      
   // initialRoute: AppRoutes.loginRoute,
 

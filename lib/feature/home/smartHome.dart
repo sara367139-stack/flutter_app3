@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/feature/analytics/analytics.dart';
 class Smarthome extends StatefulWidget {
   const Smarthome({super.key});
 
@@ -9,17 +10,22 @@ class Smarthome extends StatefulWidget {
 // 2. Fixed the typo from _SmarthomeStare to _SmarthomeState
 class _SmarthomeState extends State<Smarthome> {
   int _currentIndex = 0;
+  bool _mainLightOn = false;
+  bool _thermostatOn = false;
+  bool _acOn = false;
+  bool _frontDoorOn = false;
  @override
   Widget build(BuildContext context) {
   
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 243, 242, 244),
-      appBar: AppBar(
+       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 243, 242, 244),
-        leading: Container(
-          margin: const EdgeInsets.all(12),
-          color: Colors.white,
-          child: const Icon(Icons.menu, size: 33),
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.menu, size: 33),
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          ),
         ),
         title: const Text(
           'Smart Home',
@@ -31,7 +37,7 @@ class _SmarthomeState extends State<Smarthome> {
             padding: const EdgeInsets.all(1),
             margin: const EdgeInsets.all(12),
             child: const CircleAvatar(
-              backgroundColor: Colors.green,
+              backgroundColor: Color(0xFF2E4B3C),
               child: Text(
                 'SM',
                 style: TextStyle(
@@ -44,7 +50,102 @@ class _SmarthomeState extends State<Smarthome> {
         ],
       ),
 
-      body: Padding(
+      drawer: Drawer(
+        backgroundColor: const Color(0xFF1E3A2F),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    const CircleAvatar(
+                      radius: 25,
+                      backgroundColor: Color(0xFF4F8470),
+                      child: Text(
+                        'SM',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    const Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Sara',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            'Mohamed',
+                            style: TextStyle(
+                              color: Colors.white70,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.close, color: Colors.white),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 40),
+                buildDrawerItem('Home', Icons.home, () {}, isSelected: true),
+                buildDrawerItem('Profile', Icons.person_outline, () {}),
+                buildDrawerItem(
+                  'Notifications',
+                  Icons.notifications_none,
+                  () {},
+                ),
+                buildDrawerItem('Stats', Icons.bar_chart, () {}),
+                buildDrawerItem('Schedule', Icons.calendar_today, () {}),
+                buildDrawerItem('Settings', Icons.settings_outlined, () {}),
+                const Spacer(),
+                const Divider(color: Colors.white24),
+                const SizedBox(height: 12),
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Logged in as',
+                    style: TextStyle(color: Colors.white60, fontSize: 13),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'sara@smartgmail.io',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+
+
+
+
+
+
+ 
+        body: Padding(
         padding: const EdgeInsets.all(12),
         // تم إضافة SingleChildScrollView هنا لحل مشكلة الـ Overflow
         child: SingleChildScrollView(
@@ -68,7 +169,7 @@ class _SmarthomeState extends State<Smarthome> {
                   children: <TextSpan>[
                     TextSpan(
                       text: 'Sara',
-                      style: TextStyle(color: Colors.green),
+                      style: TextStyle(color:  Color(0xFF2E4B3C)),
                     ),
                   ],
                 ),
@@ -101,7 +202,6 @@ class _SmarthomeState extends State<Smarthome> {
                       ),
                     ],
                   ),
-
                   Column(
                     children: [
                       Icon(Icons.sunny, color: Colors.orange, size: 28),
@@ -245,24 +345,133 @@ class _SmarthomeState extends State<Smarthome> {
                 ),
               ),
               const SizedBox(height: 15),
+              const Text(
+                'Devices',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                  
+                ),
+              ),
+              const SizedBox(height: 10),
+              GridView.count(
+                crossAxisCount: 2,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
+                //physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                children: [
+                  _deviceCard(
+                    title: 'Main Light',
+                    subtitle: _mainLightOn ? 'On' : 'Off',
+                    icon: _mainLightOn ? Icons.wb_sunny : Icons.nightlight_round,
+                    cardColor: _mainLightOn ? Colors.white : const Color(0xFF2E4B3C),
+                    iconColor: _mainLightOn ? Colors.black87 : Colors.white,
+                    isActive: _mainLightOn,
+                    onTap: () {
+                      setState(() {
+                        _mainLightOn = !_mainLightOn;
+                      });
+                    },
+                    showSwitch: true,
+                    switchValue: _mainLightOn,
+                    onSwitchChanged: (value) {
+                      setState(() {
+                        _mainLightOn = value;
+                      });
+                    },
+                  ),
+                  _deviceCard(
+                    title: 'Thermostat',
+                    subtitle: _thermostatOn ? 'On · Auto' : 'Off · Auto',
+                    icon: _thermostatOn ? Icons.wb_sunny : Icons.nightlight_round,
+                    cardColor: _thermostatOn ? Colors.white : const Color(0xFF2E4B3C),
+                    iconColor: _thermostatOn ? Colors.black87 : Colors.white,
+                    isActive: _thermostatOn,
+                    onTap: () {
+                      setState(() {
+                        _thermostatOn = !_thermostatOn;
+                      });
+                    },
+                    showSwitch: true,
+                    switchValue: _thermostatOn,
+                    onSwitchChanged: (value) {
+                      setState(() {
+                        _thermostatOn = value;
+                      });
+                    },
+                  ),
+                  _deviceCard(
+                    title: 'AC Unit',
+                    subtitle: _acOn ? 'On' : 'Off',
+                    icon: _acOn ? Icons.wb_sunny : Icons.nightlight_round,
+                    cardColor: _acOn ? Colors.white : const Color(0xFF2E4B3C),
+                    iconColor: _acOn ? Colors.black87 : Colors.white,
+                    isActive: _acOn,
+                    onTap: () {
+                      setState(() {
+                        _acOn = !_acOn;
+                      });
+                    },
+                    showSwitch: true,
+                    switchValue: _acOn,
+                    onSwitchChanged: (value) {
+                      setState(() {
+                        _acOn = value;
+                      });
+                    },
+                  ),
+                  _deviceCard(
+                    title: 'Front Door',
+                    subtitle: _frontDoorOn ? 'Unlocked' : 'Locked',
+                    icon: _frontDoorOn ? Icons.wb_sunny : Icons.nightlight_round,
+                    cardColor: _frontDoorOn ? Colors.white : const Color(0xFF2E4B3C),
+                    iconColor: _frontDoorOn ? Colors.black87 : Colors.white,
+                    isActive: _frontDoorOn,
+                    onTap: () {
+                      setState(() {
+                        _frontDoorOn = !_frontDoorOn;
+                      });
+                    },
+                    showSwitch: true,
+                    switchValue: _frontDoorOn,
+                    onSwitchChanged: (value) {
+                      setState(() {
+                        _frontDoorOn = value;
+                      });
+                    },
+                  ),
+                ],
+              ),
             ],
           ),
         ),
       ),
  
-bottomNavigationBar: BottomNavigationBar(
-    type: BottomNavigationBarType.fixed, // يضمن ثبات الأيقونات والنصوص ومحاذاتها
-    backgroundColor: Colors.white,
-     selectedItemColor: const Color.fromARGB(255, 51, 80, 45), // لون الأيقونة والكلمة النشطة (Home مثلاً)
-      unselectedItemColor: Colors.grey,
-      currentIndex: _currentIndex,
-   onTap: (index) {
-     setState(() {
-      _currentIndex = index; 
-    });
-  },
+        floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const Analytics()),
+          );
+        },
+        child: const Icon(Icons.arrow_forward_ios),
+      ),
+        bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white,
+        selectedItemColor: const Color.fromARGB(255, 51, 80, 45),
+        unselectedItemColor: Colors.grey,
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          }
+          );
+        },
         items: const [
-        BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
           ),
@@ -276,15 +485,116 @@ bottomNavigationBar: BottomNavigationBar(
 
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
+            icon: Icon(Icons.settings_accessibility),
+            label: 'Setting',
           ),
         ],
       ),
 
+    );
+  }
 
 
+  Widget buildDrawerItem(
+    String title,
+    IconData icon,
+    VoidCallback onTap, {
+    bool isSelected = false,
+  }) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 8),
+      decoration: BoxDecoration(
+        color: isSelected ? Colors.white24 : null,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: ListTile(
+        leading: Icon(icon, color: Colors.white70),
+        title: Text(
+          title,
+          style: TextStyle(
+            color: isSelected ? Colors.white : Colors.white70,
+            fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+          ),
+        ),
+        onTap: onTap,
+      ),
+    );
+  }
 
+  Widget _deviceCard({
+    required String title,
+    required String subtitle,
+    required IconData icon,
+    required Color cardColor,
+    required Color iconColor,
+    bool showSwitch = false,
+    bool switchValue = false,
+    ValueChanged<bool>? onSwitchChanged,
+    bool isActive = false,
+    VoidCallback? onTap,
+  }) {
+    final textColor = cardColor.computeLuminance() > 0.5 ? Colors.black87 : Colors.white;
+    final subtitleColor = cardColor.computeLuminance() > 0.5 ? Colors.black54 : Colors.white70;
+
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(18),
+        onTap: onTap,
+        child: Container(
+          decoration: BoxDecoration(
+            color: cardColor,
+            borderRadius: BorderRadius.circular(18),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+           padding: const EdgeInsets.all(14),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CircleAvatar(
+                radius: 20,
+                backgroundColor: iconColor.withOpacity(0.2),
+                child: Icon(icon, color: iconColor, size: 22),
+              ),
+              const Spacer(),
+              Text(
+                title,
+                style: TextStyle(
+                  color: textColor,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 6),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      subtitle,
+                      style: TextStyle(
+                        color: subtitleColor,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ),
+                  if (showSwitch)
+                    Switch(
+                      value: switchValue,
+                      activeThumbColor: Colors.green,
+                      onChanged: onSwitchChanged,
+                    ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

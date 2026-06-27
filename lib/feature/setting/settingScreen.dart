@@ -1,4 +1,5 @@
 ﻿import 'package:flutter/material.dart';
+import 'package:flutter_application_1/feature/profile/Profile.dart';
 //import '../home/profile/Profile.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -245,7 +246,16 @@ class _SettingScreenState extends State<SettingScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
+       floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const Profile()),
+          );
+        },
+        child: const Icon(Icons.arrow_forward_ios),
+      ),
+        bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
         selectedItemColor: const Color.fromARGB(255, 51, 80, 45),
@@ -254,7 +264,8 @@ class _SettingScreenState extends State<SettingScreen> {
         onTap: (index) {
           setState(() {
             _currentIndex = index;
-          });
+          }
+          );
         },
         items: const [
           BottomNavigationBarItem(
